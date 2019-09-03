@@ -12,12 +12,8 @@ Perform a `git clone`, navigate to the cloned directory, and run `pip install -r
 
 Once everything is installed, run JSRLoader by running the following command:
 
-Windows: ```
-py jsrloader.py
-```
+Windows: `py jsrloader.py`
 
-Linux: ```
-python3 jsrloader.py
-```
+Linux: `python3 jsrloader.py`
 
 Songs will be downloaded into `[Clone directory]/Downloaded music/[Station name]`.
