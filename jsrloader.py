@@ -839,7 +839,7 @@ def about():
   print("-------------------------------------")
   print()
   print("Welcome to JSRLoader! This is a project by sks316 to allow downloading of songs from the online radio station JetSetRadio.live.")
-  print("Most online radio stations would play songs server-side and stream that to you via a M3U playlist file. With JetSetRadio.live, that isn't the case. JSRL serves songs as MP3s, which are then streamed to your browser. It keeps track of these songs by listing them in a JS array. While this does make things simpler on the server side, it also means that we can use the URLs of the MP3 files to download the songs from JSRL for free!")
+  print("Most online radio stations would play songs server-side and stream that to you via an M3U playlist file. With JetSetRadio.live, that isn't the case. JSRL serves songs as MP3s, which are then streamed to your browser. It keeps track of these songs by listing them in a JS array. While this does make things simpler on the server side, it also means that we can use the URLs of the MP3 files to download the songs directly from JSRL for free!")
   print()
   print("JSRLoader was made possible by:")
   print("sks316 - Creating the application itself")
