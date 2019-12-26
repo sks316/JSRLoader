@@ -17,7 +17,7 @@ def classicDL():
   url = "https://jetsetradio.live/audioplayer/stations/classic/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Classic")
@@ -80,7 +80,7 @@ def futureDL():
   url = "https://jetsetradio.live/audioplayer/stations/future/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Future")
@@ -144,7 +144,7 @@ def ggsDL():
   url = "https://jetsetradio.live/audioplayer/stations/ggs/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: GG's")
@@ -207,7 +207,7 @@ def bumpsDL():
   url = "https://jetsetradio.live/audioplayer/stations/bumps/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Bumps")
@@ -270,7 +270,7 @@ def poisonJamDL():
   url = "https://jetsetradio.live/audioplayer/stations/poisonjam/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Poison Jam")
@@ -333,7 +333,7 @@ def noiseTanksDL():
   url = "https://jetsetradio.live/audioplayer/stations/noisetanks/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Noise Tanks")
@@ -396,7 +396,7 @@ def loveShockersDL():
   url = "https://jetsetradio.live/audioplayer/stations/loveshockers/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Love Shockers")
@@ -459,7 +459,7 @@ def rapid99DL():
   url = "https://jetsetradio.live/audioplayer/stations/rapid99/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Rapid 99")
@@ -522,7 +522,7 @@ def immortalsDL():
   url = "https://jetsetradio.live/audioplayer/stations/immortals/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: The Immortals")
@@ -585,7 +585,7 @@ def doomRidersDL():
   url = "https://jetsetradio.live/audioplayer/stations/doomriders/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Doom Riders")
@@ -648,7 +648,7 @@ def goldenRhinosDL():
   url = "https://jetsetradio.live/audioplayer/stations/goldenrhinos/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Golden Rhinos")
@@ -711,7 +711,7 @@ def summerDL():
   url = "https://jetsetradio.live/audioplayer/stations/summer/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Summer")
@@ -774,7 +774,7 @@ def christmasDL():
   url = "https://jetsetradio.live/audioplayer/stations/christmas/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Christmas")
@@ -831,11 +831,74 @@ def christmasDL():
   input("Please press ENTER to continue. ")
   #--Go back to start--#
   gotoStart()
+    
+def halloweenDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/audioplayer/stations/halloween/~list.js"
+  clearScreen()
+  print()
+  print("JSRLoader v1.1.0 by sks316")
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Halloween")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("halloweenArray[halloweenArray.length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Halloween/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/audioplayer/stations/halloween/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Halloween"):
+              os.makedirs("Downloaded music/Halloween")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Halloween/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Halloween")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
 
 def about():
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("Welcome to JSRLoader! This is a project by sks316 to allow downloading of songs from the online radio station JetSetRadio.live.")
@@ -858,7 +921,7 @@ def gotoStart():
   #--Print introduction--#
   clearScreen()
   print()
-  print("JSRLoader v1.0.0 by sks316")
+  print("JSRLoader v1.1.0 by sks316")
   print("-------------------------------------")
   print()
   print("You can download from the following stations:")
@@ -874,7 +937,8 @@ def gotoStart():
   print("10: Golden Rhinos")
   print("11: Summer")
   print("12: Christmas")
-  print("13: Bumps")
+  print("13: Halloween")
+  print("14: Bumps")
   print()
   print("A: About JSRLoader")
   print("E: Exit JSRLoader")
@@ -907,6 +971,8 @@ def gotoStart():
   elif selection == '12':
     christmasDL()
   elif selection == '13':
+    halloweenDL()
+  elif selection == '14':
     bumpsDL()
   elif selection == 'a':
     about()
