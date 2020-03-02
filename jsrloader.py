@@ -5,7 +5,7 @@ import os
 from os import system, name
 
 #--Set app version--#
-appver = "JSRLoader v1.1.0-hotfix by sks316"
+appver = "JSRLoader v1.2.0 by sks316"
 
 #--Function for clearing the screen--#
 def clearScreen():
@@ -994,6 +994,879 @@ def halloweenDL():
   input("Please press ENTER to continue. ")
   #--Go back to start--#
   gotoStart()
+    
+def memoriesOfTokyoToDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/memoriesoftokyoto/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Memories of Tokyo-To")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station were made by 2 Mello. Please support their music! https://2mellomakes.bandcamp.com/")
+  print("-------------------------------------")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "memoriesoftokyoto";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Memories of Tokyo-To/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/memoriesoftokyoto/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Memories of Tokyo-To"):
+              os.makedirs("Downloaded music/Memories of Tokyo-To")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Memories of Tokyo-To/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Memories of Tokyo-To")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+    
+def ultraRemixesDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/ultraremixes/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Ultra Remixes")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "ultraremixes";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Ultra Remixes/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/ultraremixes/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Ultra Remixes"):
+              os.makedirs("Downloaded music/Ultra Remixes")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Ultra Remixes/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Ultra Remixes")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+    
+def kfadDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/kingforanotherday/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: King for Another Day")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station were made by contributors to SiIvaGunner. Please support their music! https://gilvasunner.bandcamp.com/")
+  print("-------------------------------------")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "kingforanotherday";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/King for Another Day/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/kingforanotherday/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/King for Another Day"):
+              os.makedirs("Downloaded music/King for Another Day")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/King for Another Day/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: King for Another Day")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+def lofiDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/lofi/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Lo-Fi")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "lofi";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Lo-Fi/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/lofi/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Lo-Fi"):
+              os.makedirs("Downloaded music/Lo-Fi")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Lo-Fi/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Lo-Fi")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+
+def elaquentDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/elaquent/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Forever Is A Pretty Long Time")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station were made by Elaquent. Please support their music! https://elaquent-mello-catalog.bandcamp.com/")
+  print("-------------------------------------")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "elaquent";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Forever Is A Pretty Long Time/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/elaquent/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Forever Is A Pretty Long Time"):
+              os.makedirs("Downloaded music/Forever Is A Pretty Long Time")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Forever Is A Pretty Long Time/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Forever Is A Pretty Long Time")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+
+
+def olliekingDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/ollieking/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Ollie King")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "ollieking";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Ollie King/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/ollieking/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Ollie King"):
+              os.makedirs("Downloaded music/Ollie King")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Ollie King/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Ollie King")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+
+def toejamDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/toejamandearl/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Toe Jam & Earl")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station are from the game ToeJam & Earl: Back in the Groove! Please support the original product!")
+  print("-------------------------------------")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "toejamandearl";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Toe Jam & Earl/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/toejamandearl/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Toe Jam & Earl"):
+              os.makedirs("Downloaded music/Toe Jam & Earl")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Toe Jam & Earl/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Toe Jam & Earl")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+def crazyTaxiDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/crazytaxi/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Crazy Taxi")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station are from the game Crazy Taxi. Please support the original product!")
+  print("-------------------------------------")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "crazytaxi";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Crazy Taxi/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/crazytaxi/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Crazy Taxi"):
+              os.makedirs("Downloaded music/Crazy Taxi")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Crazy Taxi/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Crazy Taxi")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+
+def hoverDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/hover/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Hover")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station are from the game Hover. Please support the original product!")
+  print("-------------------------------------")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "hover";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Hover/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/hover/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Hover"):
+              os.makedirs("Downloaded music/Hover")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Hover/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Hover")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+def butterfliesDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/butterflies/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Butterflies")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: All songs on this station are from the fangame Butterflies. Please support the original product! http://bit.ly/2TbMM6e")
+  print("-------------------------------------")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "butterflies";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Butterflies/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/butterflies/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Butterflies"):
+              os.makedirs("Downloaded music/Butterflies")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Butterflies/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Butterflies")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+def revolutionDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/revolution/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Revolution")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "revolution";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Revolution/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/revolution/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Revolution"):
+              os.makedirs("Downloaded music/Revolution")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Revolution/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Revolution")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+
+def endOfDaysDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/endofdays/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: End of Days")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "endofdays";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/End of Days/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/endofdays/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/End of Days"):
+              os.makedirs("Downloaded music/End of Days")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/End of Days/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: End of Days")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
 
 def about():
   clearScreen()
@@ -1007,6 +1880,7 @@ def about():
   print("JSRLoader was made possible by:")
   print("sks316 - Creating the application itself")
   print("JetSetRadio.live - They do provide the music...")
+  print("All artists on JSRL - Well, they made the music!")
   print("All GitHub contributors - Adding their own flair to JSRLoader by making it better or fixing bugs")
   print("You, the user - Using this application, it puts a smile on my face :)")
   print()
@@ -1039,6 +1913,8 @@ def gotoStart():
   print("12: Christmas")
   print("13: Halloween")
   print("14: Bumps")
+  print("15: Memories of Tokyo-To")
+  print("M: More stations")
   print()
   print("A: About JSRLoader")
   print("E: Exit JSRLoader")
@@ -1074,6 +1950,12 @@ def gotoStart():
     halloweenDL()
   elif selection == '14':
     bumpsDL()
+  elif selection == '15':
+    memoriesOfTokyoToDL()
+  elif selection == 'm':
+    moreStations()
+  elif selection == 'M':
+    moreStations()
   elif selection == 'a':
     about()
   elif selection == 'A':
@@ -1084,5 +1966,69 @@ def gotoStart():
     exit()
   else:
     gotoStart()
+
+def moreStations():
+  #--Print introduction--#
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("More stations:")
+  print("1: Ultra Remixes")
+  print("2: King for Another Day")
+  print("3: Lo-Fi")
+  print("4: Forever Is A Pretty Long Time")
+  print("5: Ollie King")
+  print("6: Toe Jam & Earl")
+  print("7: Crazy Taxi")
+  print("8: Hover")
+  print("9: Butterflies")
+  print("10: Revolution")
+  print("11: End of Days")
+  print("B: Go back")
+  print()
+  print("A: About JSRLoader")
+  print("E: Exit JSRLoader")
+  print()
+  print()
+  #--Ask the user to select a station to download--#
+  selection = input("Please enter the number that corresponds with your selection and press ENTER: ")
+  if selection == '1':
+    ultraRemixesDL()
+  elif selection == '2':
+    kfadDL()
+  elif selection == '3':
+    lofiDL()
+  elif selection == '4':
+    elaquentDL()
+  elif selection == '5':
+    olliekingDL()
+  elif selection == '6':
+    toejamDL()
+  elif selection == '7':
+    crazyTaxiDL()
+  elif selection == '8':
+    hoverDL()
+  elif selection == '9':
+    butterfliesDL()
+  elif selection == '10':
+    revolutionDL()
+  elif selection == '11':
+    endOfDaysDL()
+  elif selection == 'b':
+    gotoStart()
+  elif selection == 'B':
+    gotoStart()
+  elif selection == 'a':
+    about()
+  elif selection == 'A':
+    about()
+  elif selection == 'e':
+    exit()
+  elif selection == 'E':
+    exit()
+  else:
+    moreStations()
 
 gotoStart()
