@@ -4,6 +4,9 @@ import re
 import os
 from os import system, name
 
+#--Set app version--#
+appver = "JSRLoader v1.1.0-hotfix by sks316"
+
 #--Function for clearing the screen--#
 def clearScreen():
   #--Check if OS is Windows--#
@@ -14,10 +17,10 @@ def clearScreen():
 
 def classicDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/classic/~list.js"
+  url = "https://jetsetradio.live/radio/stations/classic/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Classic")
@@ -29,7 +32,14 @@ def classicDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("classicArray[classicArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "classic";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -47,7 +57,7 @@ def classicDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/classic/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/classic/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -77,10 +87,10 @@ def classicDL():
 
 def futureDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/future/~list.js"
+  url = "https://jetsetradio.live/radio/stations/future/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Future")
@@ -92,7 +102,14 @@ def futureDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("futureArray[futureArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "future";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -110,7 +127,7 @@ def futureDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/future/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/future/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -141,10 +158,10 @@ def futureDL():
 
 def ggsDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/ggs/~list.js"
+  url = "https://jetsetradio.live/radio/stations/ggs/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: GG's")
@@ -156,7 +173,14 @@ def ggsDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("ggsArray[ggsArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "ggs";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -174,7 +198,7 @@ def ggsDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/ggs/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/ggs/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -204,10 +228,10 @@ def ggsDL():
 
 def bumpsDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/bumps/~list.js"
+  url = "https://jetsetradio.live/radio/stations/bumps/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Bumps")
@@ -237,7 +261,7 @@ def bumpsDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/bumps/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/bumps/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -267,10 +291,10 @@ def bumpsDL():
 
 def poisonJamDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/poisonjam/~list.js"
+  url = "https://jetsetradio.live/radio/stations/poisonjam/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Poison Jam")
@@ -282,7 +306,14 @@ def poisonJamDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("poisonJamArray[poisonJamArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "poisonjam";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -300,7 +331,7 @@ def poisonJamDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/poisonjam/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/poisonjam/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -330,10 +361,10 @@ def poisonJamDL():
 
 def noiseTanksDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/noisetanks/~list.js"
+  url = "https://jetsetradio.live/radio/stations/noisetanks/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Noise Tanks")
@@ -345,7 +376,14 @@ def noiseTanksDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("noiseTanksArray[noiseTanksArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "noisetanks";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -363,7 +401,7 @@ def noiseTanksDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/noisetanks/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/noisetanks/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -393,10 +431,10 @@ def noiseTanksDL():
 
 def loveShockersDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/loveshockers/~list.js"
+  url = "https://jetsetradio.live/radio/stations/loveshockers/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Love Shockers")
@@ -408,7 +446,14 @@ def loveShockersDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("loveShockersArray[loveShockersArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "loveshockers";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -426,7 +471,7 @@ def loveShockersDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/loveshockers/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/loveshockers/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -456,10 +501,10 @@ def loveShockersDL():
 
 def rapid99DL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/rapid99/~list.js"
+  url = "https://jetsetradio.live/radio/stations/rapid99/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Rapid 99")
@@ -471,7 +516,14 @@ def rapid99DL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("rapid99Array[rapid99Array.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "rapid99";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -489,7 +541,7 @@ def rapid99DL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/rapid99/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/rapid99/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -519,10 +571,10 @@ def rapid99DL():
 
 def immortalsDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/immortals/~list.js"
+  url = "https://jetsetradio.live/radio/stations/immortals/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: The Immortals")
@@ -534,7 +586,14 @@ def immortalsDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("immortalsArray[immortalsArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "immortals";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -552,7 +611,7 @@ def immortalsDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/immortals/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/immortals/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -582,10 +641,10 @@ def immortalsDL():
 
 def doomRidersDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/doomriders/~list.js"
+  url = "https://jetsetradio.live/radio/stations/doomriders/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Doom Riders")
@@ -597,7 +656,14 @@ def doomRidersDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("doomRidersArray[doomRidersArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "doomriders";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -615,7 +681,7 @@ def doomRidersDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/doomriders/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/doomriders/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -645,10 +711,10 @@ def doomRidersDL():
 
 def goldenRhinosDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/goldenrhinos/~list.js"
+  url = "https://jetsetradio.live/radio/stations/goldenrhinos/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Golden Rhinos")
@@ -660,7 +726,14 @@ def goldenRhinosDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("goldenRhinosArray[goldenRhinosArray.length] = ", '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "goldenrhinos";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -678,7 +751,7 @@ def goldenRhinosDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/goldenrhinos/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/goldenrhinos/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -708,10 +781,10 @@ def goldenRhinosDL():
 
 def summerDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/summer/~list.js"
+  url = "https://jetsetradio.live/radio/stations/summer/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Summer")
@@ -723,7 +796,16 @@ def summerDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("summerArray[summerArray.length] = ", '')
+    data = data.replace('if(systemMonth == "June" || systemMonth == "July" || systemMonth == "August"){', '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "summer";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace("}", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -741,7 +823,7 @@ def summerDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/summer/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/summer/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -771,10 +853,10 @@ def summerDL():
 
 def christmasDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/christmas/~list.js"
+  url = "https://jetsetradio.live/radio/stations/christmas/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Christmas")
@@ -786,7 +868,16 @@ def christmasDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("christmasArray[christmasArray.length] = ", '')
+    data = data.replace('if(systemMonth == "December" && systemDay < 27){', '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "christmas";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace("}", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -804,7 +895,7 @@ def christmasDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/christmas/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/christmas/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -834,10 +925,10 @@ def christmasDL():
     
 def halloweenDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/audioplayer/stations/halloween/~list.js"
+  url = "https://jetsetradio.live/radio/stations/halloween/~list.js"
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You wanted to download songs from station: Halloween")
@@ -849,7 +940,16 @@ def halloweenDL():
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
-    data = data.replace("halloweenArray[halloweenArray.length] = ", '')
+    data = data.replace('if(systemMonth == "October"){', '')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "halloween";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace("}", '')
     data = data.replace(";", '')
     data = data.replace('"', '')
     #--Save the file as data.txt--#
@@ -867,7 +967,7 @@ def halloweenDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/audioplayer/stations/halloween/" + song + ".mp3"
+          song = "https://jetsetradio.live/radio/stations/halloween/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -898,7 +998,7 @@ def halloweenDL():
 def about():
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("Welcome to JSRLoader! This is a project by sks316 to allow downloading of songs from the online radio station JetSetRadio.live.")
@@ -921,7 +1021,7 @@ def gotoStart():
   #--Print introduction--#
   clearScreen()
   print()
-  print("JSRLoader v1.1.0 by sks316")
+  print(appver)
   print("-------------------------------------")
   print()
   print("You can download from the following stations:")
