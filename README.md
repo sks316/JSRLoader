@@ -8,6 +8,8 @@ You'd expect most online radio stations to play songs server-side and stream tha
 
 ## Downloading and usage
 
+Before downloading JSRLoader, please ensure you have installed Python 3.
+
 Perform a `git clone`, navigate to the cloned directory, and run `pip install -r requirements.txt` to install everything JSRLoader needs to run.
 
 Once everything is installed, run JSRLoader by running the following command:
@@ -17,3 +19,15 @@ Windows: `py jsrloader.py`
 Linux: `python3 jsrloader.py`
 
 Songs will be downloaded into `[Clone directory]/Downloaded music/[Station name]`.
+
+## Support
+
+For help with JSRLoader, please reach out to me either via the GitHub issue tracker or directly through one of the below channels.
+
+Discord: sks316#2523
+
+[Telegram](https://t.me/sks316_2523)
+
+[Twitter](https://twitter.com/sks316_)
+
+Email: sks316@mail.com
