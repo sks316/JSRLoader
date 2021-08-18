@@ -24,10 +24,10 @@ Songs will be downloaded into `[Clone directory]/Downloaded music/[Station name]
 
 For help with JSRLoader, please reach out to me either via the GitHub issue tracker or directly through one of the below channels.
 
-Discord: sks316#2523
+Discord: PrincessLillie#2523
 
-[Telegram](https://t.me/sks316_2523)
+[Telegram](https://telegram.dog/PrincessLillie)
 
-[Twitter](https://twitter.com/sks316_)
+[Twitter](https://twitter.com/Lillie2523)
 
 Email: sks316@mail.com
