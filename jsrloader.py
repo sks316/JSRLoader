@@ -7,8 +7,8 @@ import os
 from os import system, name
 
 #--Set app version--#
-appver = "JSRLoader v1.2.0 by PrincessLillie"
-appverTV = "JSRLoader v1.2.0 by PrincessLillie - JSRLTV downloader"
+appver = "JSRLoader v1.3.0 by PrincessLillie"
+appverTV = "JSRLoader v1.3.0 by PrincessLillie - JSRLTV downloader"
 
 #--Function for clearing the screen--#
 def clearScreen():
