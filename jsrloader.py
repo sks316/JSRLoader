@@ -2014,6 +2014,76 @@ def spaceDL():
   #--Go back to start--#
   gotoStart()
     
+def ganjahDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/ganjah/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: Ganjah")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "ganjah";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/Ganjah/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/ganjah/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/Ganjah"):
+              os.makedirs("Downloaded music/Ganjah")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/Ganjah/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: Ganjah")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+    
 def mashradioDL():
   #--Get list of songs from JSRL--#
   url = "https://jetsetradiofuture.live/radio/stations/jetmashradio/~list.js"
