@@ -1000,7 +1000,7 @@ def halloweenDL():
     
 def memoriesOfTokyoToDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/radio/stations/memoriesoftokyoto/~list.js"
+  url = "https://jetsetradiofuture.live/radio/stations/memoriesoftokyoto/~list.js"
   clearScreen()
   print()
   print(appver)
@@ -1012,6 +1012,7 @@ def memoriesOfTokyoToDL():
   print()
   print("-------------------------------------")
   print("/!\ NOTICE: All songs on this station were made by 2 Mello. Please support their music! https://2mellomakes.bandcamp.com/")
+  print("This station was removed from JSRL, and is instead being downloaded from a clone server at jetsetradiofuture.live.")
   print("-------------------------------------")
   print()
   print("Getting list of songs to download...")
@@ -1044,7 +1045,7 @@ def memoriesOfTokyoToDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/radio/stations/memoriesoftokyoto/" + song + ".mp3"
+          song = "https://jetsetradiofuture.live/radio/stations/memoriesoftokyoto/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -1144,7 +1145,7 @@ def ultraRemixesDL():
     
 def kfadDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/radio/stations/kingforanotherday/~list.js"
+  url = "https://jetsetradiofuture.live/radio/stations/siivagunner/~list.js"
   clearScreen()
   print()
   print(appver)
@@ -1158,13 +1159,14 @@ def kfadDL():
   print()
   print("-------------------------------------")
   print("/!\ NOTICE: All songs on this station were made by contributors to SiIvaGunner. Please support their music! https://gilvasunner.bandcamp.com/")
+  print("This station was removed from JSRL, and is instead being downloaded from a clone server at jetsetradiofuture.live.")
   print("-------------------------------------")
   print()
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
     data = file.read().decode('utf-8')
     data = data.replace("//Choose a name for the station", '')
-    data = data.replace('stationName = "kingforanotherday";', '')
+    data = data.replace('stationName = "siivagunner";', '')
     data = data.replace("//Add it to the array of stations", '')
     data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
     data = data.replace("//Define an array for tracks", '')
@@ -1188,7 +1190,7 @@ def kfadDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/radio/stations/kingforanotherday/" + song + ".mp3"
+          song = "https://jetsetradiofuture.live/radio/stations/siivagunner/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -1289,7 +1291,7 @@ def lofiDL():
 
 def elaquentDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/radio/stations/elaquent/~list.js"
+  url = "https://jetsetradiofuture.live/radio/stations/elaquent/~list.js"
   clearScreen()
   print()
   print(appver)
@@ -1301,6 +1303,7 @@ def elaquentDL():
   print()
   print("-------------------------------------")
   print("/!\ NOTICE: All songs on this station were made by Elaquent. Please support their music! https://elaquent-mello-catalog.bandcamp.com/")
+  print("This station was removed from JSRL, and is instead being downloaded from a clone server at jetsetradiofuture.live.")
   print("-------------------------------------")
   print()
   print("Getting list of songs to download...")
@@ -1333,7 +1336,7 @@ def elaquentDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/radio/stations/elaquent/" + song + ".mp3"
+          song = "https://jetsetradiofuture.live/radio/stations/elaquent/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -1873,7 +1876,7 @@ def endOfDaysDL():
     
 def mashradioDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/radio/stations/jetmashradio/~list.js"
+  url = "https://jetsetradiofuture.live/radio/stations/jetmashradio/~list.js"
   clearScreen()
   print()
   print(appver)
@@ -1884,6 +1887,10 @@ def mashradioDL():
   print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
   print()
   print("Getting list of songs to download...")
+  print()
+  print("-------------------------------------")
+  print("/!\ NOTICE: This station was removed from JSRL, and is instead being downloaded from a clone server at jetsetradiofuture.live.")
+  print("-------------------------------------")
   print()
   with urllib.request.urlopen(url) as file:
     #--Make the file actually usable by JSRLoader--#
@@ -1913,7 +1920,7 @@ def mashradioDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/radio/stations/jetmashradio/" + song + ".mp3"
+          song = "https://jetsetradiofuture.live/radio/stations/jetmashradio/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
@@ -2017,7 +2024,7 @@ def djchidowDL():
     
 def futuregenDL():
   #--Get list of songs from JSRL--#
-  url = "https://jetsetradio.live/radio/stations/futuregeneration/~list.js"
+  url = "https://jetsetradiofuture.live/radio/stations/futuregeneration/~list.js"
   clearScreen()
   print()
   print(appver)
@@ -2029,6 +2036,7 @@ def futuregenDL():
   print()
   print("-------------------------------------")
   print("/!\ NOTICE: All songs on this station were made by SASHKO NAGANUMA. Please support their music! https://sashkonaganuma.bandcamp.com/")
+  print("This station was removed from JSRL, and is instead being downloaded from a clone server at jetsetradiofuture.live.")
   print("-------------------------------------")
   print()
   print("Getting list of songs to download...")
@@ -2061,7 +2069,7 @@ def futuregenDL():
           #--Download the song--#
           print("Downloading " + song + "... Please be patient.")
           print()
-          song = "https://jetsetradio.live/radio/stations/futuregeneration/" + song + ".mp3"
+          song = "https://jetsetradiofuture.live/radio/stations/futuregeneration/" + song + ".mp3"
           with requests.get(song) as result:
             song = x.replace("\n", '')
             #--Check if our download directory exists, and if it doesn't, create it--#
