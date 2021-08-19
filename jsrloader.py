@@ -1874,6 +1874,76 @@ def endOfDaysDL():
   #--Go back to start--#
   gotoStart()
     
+def garageDL():
+  #--Get list of songs from JSRL--#
+  url = "https://jetsetradio.live/radio/stations/garage/~list.js"
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("You wanted to download songs from station: The Garage")
+  print("This process will download all the songs from the station. This will take some time. Go grab a snack or read a book or something.")
+  print("If a download takes longer than a few minutes, please force-close the application and check your connection.")
+  print()
+  print("Getting list of songs to download...")
+  print()
+  with urllib.request.urlopen(url) as file:
+    #--Make the file actually usable by JSRLoader--#
+    data = file.read().decode('utf-8')
+    data = data.replace("//Choose a name for the station", '')
+    data = data.replace('stationName = "garage";', '')
+    data = data.replace("//Add it to the array of stations", '')
+    data = data.replace("stationsArray[stationsArray.length] = stationName;", '')
+    data = data.replace("//Define an array for tracks", '')
+    data = data.replace('this[stationName+"_tracks"] = new Array();', '')
+    data = data.replace("//TRACKS", '')
+    data = data.replace("this[stationName+'_tracks'][this[stationName+'_tracks'].length] = ", '')
+    data = data.replace(";", '')
+    data = data.replace('"', '')
+    #--Save the file as data.txt--#
+    with open('data.txt', 'w') as f:
+      f.write(data)
+  #--Open data.txt--#
+  with open('data.txt', 'r') as data:
+    for x in list(data):
+      #--Make the file usable (again)--#
+      song = x.replace("\n", '')
+      #--Check if song name is blank--#
+      if not song == '':
+        #--Check if already downloaded--#
+        if not os.path.exists("Downloaded music/The Garage/" + song + ".mp3"):
+          #--Download the song--#
+          print("Downloading " + song + "... Please be patient.")
+          print()
+          song = "https://jetsetradio.live/radio/stations/garage/" + song + ".mp3"
+          with requests.get(song) as result:
+            song = x.replace("\n", '')
+            #--Check if our download directory exists, and if it doesn't, create it--#
+            if not os.path.exists("Downloaded music/"):
+              os.makedirs("Downloaded music/")
+            if not os.path.exists("Downloaded music/The Garage"):
+              os.makedirs("Downloaded music/The Garage")
+            #--Write the downloaded song to a file--#
+            with open("Downloaded music/The Garage/" + song + '.mp3', 'wb') as end:
+              end.write(result.content)
+          #--Print success message--#
+          print("Successfully downloaded " + x)
+        #--Code to execute if song exists--#
+        else:
+          print("Skipped " + song + ": Already downloaded!")
+          print()
+      else:
+        pass
+  if os.path.exists("data.txt"):
+    os.remove("data.txt")
+  #--Print final success message--#
+  print("Successfully downloaded all songs from station: The Garage")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  gotoStart()
+    
 def mashradioDL():
   #--Get list of songs from JSRL--#
   url = "https://jetsetradiofuture.live/radio/stations/jetmashradio/~list.js"
@@ -2223,6 +2293,8 @@ def moreStations():
   print("12: JET MASH RADIO")
   print("13: DJ Chidow")
   print("14: FUTURE GENERATION")
+  print("15: Outer Space")
+  print("M: Even more stations")
   print("B: Go back")
   print()
   print("A: About JSRLoader")
@@ -2259,10 +2331,71 @@ def moreStations():
     djchidowDL()
   elif selection == '14':
     futuregenDL()
+  elif selection == '15':
+    spaceDL()
+  elif selection == 'm':
+    evenMoreStations()
+  elif selection == 'M':
+    evenMoreStations()
   elif selection == 'b':
     gotoStart()
   elif selection == 'B':
     gotoStart()
+  elif selection == 'a':
+    about()
+  elif selection == 'A':
+    about()
+  elif selection == 'e':
+    exit()
+  elif selection == 'E':
+    exit()
+  else:
+    moreStations()
+
+def evenMoreStations():
+  #--Print introduction--#
+  clearScreen()
+  print()
+  print(appver)
+  print("-------------------------------------")
+  print()
+  print("Even more stations:")
+  print("1: The Garage")
+  print("2: Ganjah")
+  print("3: Chiptunes")
+  print("4: Retro Remix")
+  print("5: Classical Remix")
+  print("6: BonafideBloom")
+  print("7: VeraFX")
+  print("8: Snow-fi")
+  print("B: Go back")
+  print()
+  print("A: About JSRLoader")
+  print("E: Exit JSRLoader")
+  print()
+  print()
+  #--Ask the user to select a station to download--#
+  selection = input("Please enter the number that corresponds with your selection and press ENTER: ")
+  if selection == '1':
+    garageDL()
+  elif selection == '2':
+    ganjahDL()
+  elif selection == '3':
+    chiptunesDL()
+  elif selection == '4':
+    retroRemixDL()
+  elif selection == '5':
+    classicalRemixDL()
+  elif selection == '6':
+    bonafideBloomDL()
+  elif selection == '7':
+    veraFXDL()
+  elif selection == '8':
+    snowfiDL()
+  elif selection == 'b':
+    moreStations()
+  elif selection == 'B':
+    moreStations()
   elif selection == 'a':
     about()
   elif selection == 'A':
