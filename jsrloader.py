@@ -1,11 +1,14 @@
 import urllib.request
 import requests
 import re
+import xml.etree.ElementTree as ET
+import json
 import os
 from os import system, name
 
 #--Set app version--#
 appver = "JSRLoader v1.2.0 by PrincessLillie"
+appverTV = "JSRLoader v1.2.0 by PrincessLillie - JSRLTV downloader"
 
 #--Function for clearing the screen--#
 def clearScreen():
@@ -2134,6 +2137,7 @@ def gotoStart():
   print("15: Memories of Tokyo-To")
   print("M: More stations")
   print()
+  print("T: JSRLTV Downloader")
   print("A: About JSRLoader")
   print("E: Exit JSRLoader")
   print()
@@ -2174,6 +2178,10 @@ def gotoStart():
     moreStations()
   elif selection == 'M':
     moreStations()
+  elif selection == 't':
+    JSRLTV()
+  elif selection == 'T':
+    JSRLTV()
   elif selection == 'a':
     about()
   elif selection == 'A':
@@ -2257,5 +2265,771 @@ def moreStations():
     exit()
   else:
     moreStations()
+
+def TVpinned():
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download pinned")
+  print("This process will download the pinned video, the one that plays first every time you open JSRLTV. This will take only a few moments.")
+  print("If the download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  #--Check if already downloaded--#
+  if not os.path.exists("Downloaded videos/Pinned/pinned.mp4"):
+    #--download video--#
+    print("Downloading pinned... Please be patient.")
+    print()
+    video = "https://jetsetradio.live/tv/APP/videoplayer/pinned/pinned.mp4"
+    #--save video to disk--#
+    with requests.get(video) as result:
+	 #--Check if our download directory exists, and if it doesn't, create it--#
+      if not os.path.exists("Downloaded videos/"):
+        os.makedirs("Downloaded videos/")
+      if not os.path.exists("Downloaded videos/Pinned"):
+        os.makedirs("Downloaded videos/Pinned")
+    #--write downloaded video to file--#
+    with open("Downloaded videos/Pinned/pinned.mp4", 'wb') as end:
+        end.write(result.content)
+        #--Print success message--#
+        print("Successfully downloaded pinned")
+        print()
+  #--Code to execute if song exists--#
+  else:
+    print("Skipped pinned: Already downloaded!")
+    print()
+  #--Print final success message--#
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch1():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 1")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray1'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 1/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch1/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 1"):
+            os.makedirs("Downloaded videos/Channel 1")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 1/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 1")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch2():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 2")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray2'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 2/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch2/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 2"):
+            os.makedirs("Downloaded videos/Channel 2")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 2/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 2")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch3():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 3")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray3'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 3/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch3/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 3"):
+            os.makedirs("Downloaded videos/Channel 3")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 3/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 3")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch4():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 4")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray4'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 4/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch4/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 4"):
+            os.makedirs("Downloaded videos/Channel 4")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 4/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 4")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch5():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 5")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray5'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 5/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch5/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 5"):
+            os.makedirs("Downloaded videos/Channel 5")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 5/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 5")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch6():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 6")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray6'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 6/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch6/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 6"):
+            os.makedirs("Downloaded videos/Channel 6")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 6/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 6")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch7():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 7")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray7'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 7/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch7/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 7"):
+            os.makedirs("Downloaded videos/Channel 7")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 7/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 7")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch8():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 8")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray8'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 8/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch8/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 8"):
+            os.makedirs("Downloaded videos/Channel 8")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 8/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 8")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def TVch9():
+  #--Get list of videos from JSRLTV--#
+  url = "https://jetsetradio.live/tv/APP/preloader/retrieveTotalFilesAndFilesList.php"
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("You chose to download videos from channel 9")
+  print("This process will download all the videos from the channel. This will take a while. Go grab a snack or read a book or something.")
+  print("If a download takes longer than half an hour, please force-close the application and check your connection.")
+  print()
+  print("Getting list of videos to download...")
+  print()
+  #--download list of videos--#
+  with urllib.request.urlopen(url) as file:
+    #--make the XML usable--#
+    data = file.read().decode('utf-8')
+	 #--open videos.xml on disk and write downloaded data--#
+    with open('videos.xml', 'w') as f:
+      f.write(data)
+  #--parse XML and convert to JSON--#
+  tree = ET.parse('videos.xml')
+  root = tree.getroot()
+  for item in root.findall('./fileListArray9'):
+  #--open file.json on disk--#
+    with open('videos.json', 'w') as f:
+      #--remove extra characters and backslashes--#
+      string = str(item.text.encode('utf8'))[2:-1]
+      string = string.replace("/", '')
+      string = string.replace("\\", '')
+      #--write JSON to videos.json--#
+      f.write(string)
+  #--parse JSON--#
+  with open('videos.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+	 #--get names of videos from JSON--#
+    for x in data:
+      #--Check if already downloaded--#
+      if not os.path.exists("Downloaded videos/Channel 9/" + x + ".mp4"):
+	     #--download video--#
+        print("Downloading " + x + "... Please be patient.")
+        print()
+        video = "https://jetsetradio.live/tv/APP/videoplayer/ch9/" + x + ".mp4"
+        #--save video to disk--#
+        with requests.get(video) as result:
+		    #--Check if our download directory exists, and if it doesn't, create it--#
+          if not os.path.exists("Downloaded videos/"):
+            os.makedirs("Downloaded videos/")
+          if not os.path.exists("Downloaded videos/Channel 9"):
+            os.makedirs("Downloaded videos/Channel 9")
+        #--write downloaded video to file--#
+        with open("Downloaded videos/Channel 9/" + x + '.mp4', 'wb') as end:
+            end.write(result.content)
+            #--Print success message--#
+            print("Successfully downloaded " + x)
+            print()
+      #--Code to execute if song exists--#
+      else:
+        print("Skipped " + x + ": Already downloaded!")
+        print()
+  #--once done, remove the JSON and XML file--#
+  if os.path.exists("videos.json"):
+		 os.remove("videos.json")
+  if os.path.exists("videos.xml"):
+		 os.remove("videos.xml")
+  #--Print final success message--#
+  print("Successfully downloaded all videos from channel 9")
+  print()
+  input("Please press ENTER to continue. ")
+  #--Go back to start--#
+  JSRLTV()
+
+def JSRLTV():
+  #--Print JSRLTV downloader menu--#
+  clearScreen()
+  print()
+  print(appverTV)
+  print("-------------------------------------")
+  print()
+  print("Welcome to the JSRLTV downloader!")
+  print("With this, you can download videos from the JSRLTV player at jetsetradio.live.")
+  print("Just so you know, this can take a lot of drive space. Please make sure you have at least 70GB if you intend to download all channels.")
+  print("Select a channel to download:")
+  print()
+  print("P: pinned")
+  print("1: Channel 1")
+  print("2: Channel 2")
+  print("3: Channel 3")
+  print("4: Channel 4")
+  print("5: Channel 5")
+  print("6: Channel 6")
+  print("7: Channel 7")
+  print("8: Channel 8")
+  print("9: Channel 9")
+  print()
+  print("B: Go back")
+  print("E: Exit JSRLoader")
+  print()
+  print()
+  #--Ask the user to select a channel to download--#
+  selection = input("Please enter the number that corresponds with your selection and press ENTER: ")
+  if selection == 'P':
+    TVpinned()
+  elif selection == 'p':
+    TVpinned()
+  elif selection == '1':
+    TVch1()
+  elif selection == '2':
+    TVch2()
+  elif selection == '3':
+    TVch3()
+  elif selection == '4':
+    TVch4()
+  elif selection == '5':
+    TVch5()
+  elif selection == '6':
+    TVch6()
+  elif selection == '7':
+    TVch7()
+  elif selection == '8':
+    TVch8()
+  elif selection == '9':
+    TVch9()
+  elif selection == 'b':
+    gotoStart()
+  elif selection == 'B':
+    gotoStart()
+  elif selection == 'e':
+    exit()
+  elif selection == 'E':
+    exit()
+  else:
+    JSRLTV()
 
 gotoStart()
